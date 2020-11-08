@@ -10,11 +10,12 @@ import java.io.*;
  */
 public class BusController {
     private DeviceConnection connection;
-    public BusController(String ip, int port) throws UnknownHostException, IOException {
+    public BusController(String ip, int port) throws UnknownHostException, IOException, FailedToConfigure {
         this.connection = new DeviceConnection(ip, port, 0x0, 2);
         this.connection.connect();
+        this.configure();
     }
-    public DeviceData configure() throws FailedToConfigure, UnknownHostException, IOException{
+    private DeviceData configure() throws FailedToConfigure, UnknownHostException, IOException{
         this.connection.sendDevice(
             new DeviceData(),
             DeviceConstants.TADK_COMMAND_CONFIG,
