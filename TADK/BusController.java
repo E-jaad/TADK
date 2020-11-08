@@ -35,6 +35,14 @@ public class BusController {
         );
         return connection.readDevice();
     }
+    public DeviceData queryRtBc(DeviceData data) throws UnknownHostException, IOException {
+        connection.sendDevice(
+            data,
+            DeviceConstants.TADK_COMMAND_SET,
+            DeviceConstants.TADK_ACTION_VECT
+        );
+        return connection.readDevice();
+    }
     public DeviceData queryRtRt(DeviceData data) throws UnknownHostException,IOException {
         connection.sendDevice(
             data,
