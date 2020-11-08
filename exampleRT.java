@@ -7,11 +7,7 @@ public class exampleRT {
         short[] data = new short[32];
         //Create an object of RT and connect to TADK through tcp on the give ip and port and set RT address as well
         RemoteTerminal rt = new RemoteTerminal("127.0.0.1",4815,13);
-        //configure TADK as Remote Terminal
-        rt.configure();
-        //Set 32 words in Transmit dataset of RT 13 at SA1
-        rt.sendRtData(
-            new DeviceData(13,2,1,data)
-        );
+        //Set 32 words in Transmit dataset of RT 13 at SubAdress 3
+        rt.writeSubAddress(3, data);                
     }
 }

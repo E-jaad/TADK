@@ -8,6 +8,7 @@ public class DeviceData {
     public int status;
     public int channel;
     public int response;
+    public int index;
     // a dummy constructor for configuaration use
     public DeviceData() {
         this.rtAddress = 0;
@@ -21,7 +22,7 @@ public class DeviceData {
         this.txRx = txRx;
         this.data = data;
     }
-    public DeviceData(int rtAddress,int subAddress,int txRx, short[] data, int status, int channel,int response) {
+    public DeviceData(int rtAddress,int subAddress,int txRx, short[] data, int status, int channel,int response, int index) {
         this.rtAddress = rtAddress;
         this.subAddress = subAddress;
         this.txRx = txRx;
@@ -29,6 +30,7 @@ public class DeviceData {
         this.status = status;
         this.channel = channel;
         this.response = response;
+        this.index = index;
     }
     public byte[] encode(byte command,byte action) {
         byte[] encoded = new byte[82];
@@ -50,10 +52,9 @@ public class DeviceData {
         return encoded;
     }
     public static DeviceData decode(char[] rawData) {
-        
         int sync = rawData[0] + rawData[1] * 256;
         if(sync != 0xaa) return null;
-        // int messageIndex = rawData[2] + rawData[3] * 256;
+        int index = rawData[2] + rawData[3] * 256;
         int response = rawData[4] +rawData[5] *256;
         int channel = rawData[6] + rawData[7] * 256;
         int rta = rawData[8] + rawData[9] * 256;
@@ -65,6 +66,6 @@ public class DeviceData {
         for (int i = 0, j = 0; i < count; i++,j+=2) {
             data[i] = (short)(rawData[18+j] + rawData[19+j] * 256);
         }
-        return new DeviceData(rta, subadd, txrx, data, status, channel,response);
+        return new DeviceData(rta, subadd, txrx, data, status, channel,response, index);
     }
 }

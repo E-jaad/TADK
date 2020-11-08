@@ -5,11 +5,15 @@ import java.io.*;
 
 public class RemoteTerminal {
     private DeviceConnection connection;
-    public RemoteTerminal(String ip, int port, int rtAddress) throws UnknownHostException, IOException {
+    private int rtAddress;
+    public RemoteTerminal(String ip, int port, int rtAddress) throws UnknownHostException, IOException,
+            FailedToConfigure {
         this.connection = new DeviceConnection(ip, port, rtAddress, 3);
         this.connection.connect();
+        this.rtAddress = rtAddress;
+        this.configure();
     }
-    public DeviceData configure() throws FailedToConfigure, UnknownHostException, IOException {
+    private DeviceData configure() throws FailedToConfigure, IOException {
         this.connection.sendDevice(
             new DeviceData(),
             DeviceConstants.TADK_COMMAND_CONFIG,
@@ -21,15 +25,22 @@ public class RemoteTerminal {
         }
         return ret;
     }
-    public void sendRtData(DeviceData data) throws UnknownHostException, IOException {
-        connection.sendDevice(
+    public void sendDeviceData(DeviceData data) throws IOException {
+        this.connection.sendDevice(
             data,
             DeviceConstants.TADK_COMMAND_SET,
             DeviceConstants.TADK_ACTION_VECT
         );
     }
-    public DeviceData recieveRtData() throws UnknownHostException, IOException {
-        return null;
+    public void writeSubAddress(int subAddress, short[] data) throws IOException {
+        this.connection.sendDevice(
+            new DeviceData(this.rtAddress, subAddress, 1, data),
+            DeviceConstants.TADK_COMMAND_SET,
+            DeviceConstants.TADK_ACTION_VECT
+        );
+    }
+    public DeviceData readDeviceData() throws IOException {
+        return this.connection.readDevice();
     }
 }
 
