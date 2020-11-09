@@ -33,6 +33,7 @@ public class DeviceConstants {
     public static final int TADK_ACTION_UNSETTRAP   = 6;
     public static final int TADK_ACTION_BM_ENABLE   = 7;
     public static final int TADK_ACTION_BM_DISABLE  = 8;
+    public static final int TADK_ACTION_ISBC	    = 9;
     public static final int TADK_ACTION_BRODCAST    = 10;
     public static final int TADK_ACTION_SELF_TEST	= 11;
 

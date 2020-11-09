@@ -43,4 +43,3 @@ public class RemoteTerminal {
         return this.connection.readDevice();
     }
 }
-
