@@ -21,6 +21,12 @@ public class DeviceData {
         this.txRx = txRx;
         this.data = data;
     }
+    public DeviceData(int rtAddress,int subAddress, int count) {
+        this.rtAddress = rtAddress;
+        this.subAddress = subAddress;
+        this.txRx = 1;
+        this.data = new short[count];
+    }
     public DeviceData(int rtAddress,int subAddress,int txRx, short[] data, int status, int channel,int response) {
         this.rtAddress = rtAddress;
         this.subAddress = subAddress;
@@ -50,12 +56,12 @@ public class DeviceData {
         }
         return encoded;
     }
-    public static DeviceData decode(char[] rawData) {
+    public static DeviceData decode(char[] rawData) throws FailedToDecode {
         
         int sync = rawData[0] + rawData[1] * 256;
         if(sync != 0xaaaa){ 
-            System.out.println("sync="+sync);
-            return null;}
+            throw new FailedToDecode("in correct sync = "+sync);
+        }
         //int messageIndex = rawData[2] + rawData[3] * 256;
         short response = (short)(rawData[4] +rawData[5] *256);
         int channel = rawData[6] + rawData[7] * 256;

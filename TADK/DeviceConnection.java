@@ -66,7 +66,7 @@ class DeviceConnection {
         char[] tcpBuffer = new char[82];
         try{
             final int bytesread = inStream.read(tcpBuffer, 0, 82);
-            if (bytesread == 82 && tcpBuffer[0] == 0xaa) {
+            if (bytesread == 82) {
                 return DeviceData.decode(tcpBuffer);
             }
         }
