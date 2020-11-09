@@ -9,7 +9,7 @@ public class exampleBC {
         //Connect to TCP Server TADK
         BusController bc = new BusController("192.168.0.102",9761);
         //Send RT->BC Command on RT:12 SA:1 TxRx:1 Word Count:data.length
-        DeviceData res = bc.queryBcRt(
+        DeviceData res = bc.queryRt(
             new DeviceData(12,1,1,data)
         );  
         if(res.response==DeviceConstants.TADK_RESPONSE_FAILED_RX_BC_RT)

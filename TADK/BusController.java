@@ -27,7 +27,7 @@ public class BusController {
         }
         return ret;
     }
-    public DeviceData queryBcRt(DeviceData data) throws UnknownHostException, IOException {
+    public DeviceData queryRt(DeviceData data) throws UnknownHostException, IOException {
         connection.sendDevice(
             data,
             DeviceConstants.TADK_COMMAND_GET,
@@ -35,25 +35,34 @@ public class BusController {
         );
         return connection.readDevice();
     }
-    public DeviceData queryRtBc(DeviceData data) throws UnknownHostException, IOException {
+    public DeviceData queryBcRt(int rtAddress, int subAddress, short[] data) throws UnknownHostException, IOException {
         connection.sendDevice(
-            data,
+            new DeviceData(rtAddress, subAddress, 1, data),
+            DeviceConstants.TADK_COMMAND_GET,
+            DeviceConstants.TADK_ACTION_VECT
+        );
+        return connection.readDevice();
+    }
+    public DeviceData queryRtBc(int rtAddress, int subAddress, short[] data) throws UnknownHostException, IOException {
+        connection.sendDevice(
+            new DeviceData(rtAddress, subAddress, 0, data),
             DeviceConstants.TADK_COMMAND_SET,
             DeviceConstants.TADK_ACTION_VECT
         );
         return connection.readDevice();
     }
-    public DeviceData queryRtRt(DeviceData data) throws UnknownHostException,IOException {
+    public DeviceData queryRtRt(int txRtAddress, int txSubAddress, int rxRtAddress, int rxSubAddress) throws UnknownHostException,IOException {
+        short[] data = new short[32];
         connection.sendDevice(
-            data,
+            new DeviceData(txRtAddress, txSubAddress, 0, data),
             DeviceConstants.TADK_COMMAND_RTRT,
             DeviceConstants.TADK_ACTION_VECT
         );
         return connection.readDevice();
     }
-    public DeviceData queryModeCode(DeviceData data) throws UnknownHostException,IOException {
+    public DeviceData queryModeCode(int rtAddress, int modecode, short[] data) throws UnknownHostException,IOException {
         connection.sendDevice(
-            data,
+            new DeviceData(rtAddress, modecode, 0, data),
             DeviceConstants.TADK_COMMAND_SET,
             DeviceConstants.TADK_ACTION_MODE
         );
