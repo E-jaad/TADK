@@ -1,7 +1,9 @@
 import java.io.IOException;
 import java.net.UnknownHostException;
 import TADK.*;
-
+/**
+ * This is an example BC which sends and recives data with RT address 1
+ */
 public class exampleBC {
     public final static String ip = "192.168.0.102";
     public final static int port = 9761;
