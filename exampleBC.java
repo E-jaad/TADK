@@ -3,8 +3,8 @@ import java.net.UnknownHostException;
 import TADK.*;
 
 public class exampleBC {
-    public final static String ip = "127.0.0.1";
-    public final static int port = 4815;
+    public final static String ip = "192.168.0.102";
+    public final static int port = 9761;
 	public static void main(String args[]) throws UnknownHostException, IOException, FailedToConfigure
 	{ 
         int count = 0;
@@ -20,12 +20,14 @@ public class exampleBC {
             BusController bc = new BusController(ip, port);
             System.out.println("Connected to "+ip+":"+port);  
             while(true) {
-                if(count == 6) count = 0;
+                if(count == 6) count=0;;
                 DeviceData res = bc.queryRt(
                     messages[count]
                 );  
                 if(res.response==DeviceConstants.TADK_RESPONSE_FAILED_RX_BC_RT)
                     System.out.println("BC->RT Command failed");
+                else if(res.response==DeviceConstants.TADK_RESPONSE_FAILED_TX_RT_BC)
+                    System.out.println("RT->BC Command failed");
                 count++;
             }
         } catch(Exception e){

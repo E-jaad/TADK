@@ -3,8 +3,8 @@ import java.net.UnknownHostException;
 import TADK.*;
 public class exampleRT {
 
-    public final static String ip = "127.0.0.1";
-    public final static int port = 4815;    
+    public final static String ip = "192.168.0.102";
+    public final static int port = 9761;    
     public final static int rtAddress = 1;
     public static void main(String args[]) throws UnknownHostException, IOException, FailedToConfigure
 	{ 
@@ -24,7 +24,7 @@ public class exampleRT {
                 DeviceData recData;
 				try {
                     recData = rt.readDeviceData();
-                    System.out.println("Recieved [" + recData.subAddress+ "] :"+recData.data);
+                    System.out.println("Recieved [" + recData.subAddress+ "] :"+recData.response);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

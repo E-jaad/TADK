@@ -30,7 +30,7 @@ public class BusController {
     public DeviceData queryRt(DeviceData data) throws UnknownHostException, IOException {
         connection.sendDevice(
             data,
-            DeviceConstants.TADK_COMMAND_GET,
+            data.txRx  == 1 ? DeviceConstants.TADK_COMMAND_GET : DeviceConstants.TADK_COMMAND_SET,
             DeviceConstants.TADK_ACTION_VECT
         );
         return connection.readDevice();
@@ -54,7 +54,12 @@ public class BusController {
     public DeviceData queryRtRt(int txRtAddress, int txSubAddress, int rxRtAddress, int rxSubAddress) throws UnknownHostException,IOException {
         short[] data = new short[32];
         connection.sendDevice(
-            new DeviceData(txRtAddress, txSubAddress, 0, data),
+            new DeviceData(
+                rxRtAddress+txRtAddress*256,
+                rxSubAddress+txSubAddress*256, 
+                0, 
+                data
+            ),
             DeviceConstants.TADK_COMMAND_RTRT,
             DeviceConstants.TADK_ACTION_VECT
         );
