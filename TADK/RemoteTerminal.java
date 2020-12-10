@@ -39,13 +39,6 @@ public class RemoteTerminal {
             DeviceConstants.TADK_ACTION_VECT
         );
     }
-    public void writeData(int cmd,int action,short[] data) throws IOException {
-        this.connection.sendDevice(
-            new DeviceData(this.rtAddress, 0, 0, data),
-            cmd,
-            action
-        );
-    }
     public DeviceData readDeviceData() throws IOException {
         return this.connection.readDevice();
     }
