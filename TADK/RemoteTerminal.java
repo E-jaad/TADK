@@ -49,4 +49,31 @@ public class RemoteTerminal {
     public DeviceData readDeviceData() throws IOException {
         return this.connection.readDevice();
     }
+    public void setUnsetDO(short DOnumber, Boolean direction) throws IOException {
+        int action = direction 
+            ? DeviceConstants.TADK_ACTION_SET_DIOS 
+            : DeviceConstants.TADK_ACTION_UNSET_DIOS;
+        short[] data = new short[]{DOnumber};
+        this.connection.sendDevice(
+            new DeviceData(this.rtAddress, 0, 0, data), 
+            DeviceConstants.TADK_COMMAND_CONFIG, 
+            action
+        );
+    }
+    public void mapDIOstoData(short type,short number,short sa,short wordNumber,short bitNumber)throws IOException {
+        short[] data = new short[]{type, number, sa, wordNumber, bitNumber };
+        this.connection.sendDevice(
+            new DeviceData(this.rtAddress, 0, 0, data), 
+            DeviceConstants.TADK_COMMAND_CONFIG, 
+            DeviceConstants.TADK_ACTION_MAP_DIOS
+        );
+    }
+    public void unmapDIOstoData(short type,short number,short sa,short wordNumber,short bitNumber) throws IOException {
+        short[] data = new short[]{type,number, sa, wordNumber, bitNumber };
+        this.connection.sendDevice(
+            new DeviceData(this.rtAddress, 0, 0, data), 
+            DeviceConstants.TADK_COMMAND_CONFIG, 
+            DeviceConstants.TADK_ACTION_UNMAP_DIOS
+        );
+    }
 }
