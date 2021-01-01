@@ -9,7 +9,7 @@ public class exampleBC {
     /*
     * IP address of TADK
     */
-    public final static String ip = "192.168.1.101";
+    public final static String ip = "192.168.0.102";
     /*
     *   TCP Port Number of TADK
     */
@@ -25,7 +25,7 @@ public class exampleBC {
             // Connect to TCP Server TADK
             BusController bc = new BusController(ip, port);
             System.out.println("Connected to " + ip + ":" + port);
-            scheduler t1 = new scheduler("50ms",bc);
+            exampleScheduler t1 = new exampleScheduler("50ms",bc);
             Timer t = new Timer();
             t.schedule(t1,60,50); //  executes for every 50 miliseconds
         } catch (Exception e) {

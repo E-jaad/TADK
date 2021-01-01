@@ -122,11 +122,11 @@ public class DeviceConstants {
      */
     public static final int TADK_ACTION_BRODCAST    = 10;
     /**
-     * Set “Busy Bit” in status word.
+     * Set Busy Bit in status word.
      */
     public static final int TADK_ACTION_RT_HOST_INI	= 12;
     /**
-     * Unset "Busy Bit" in status word.
+     * Unset Busy Bit in status word.
      */
     public static final int TADK_ACTION_RT_HOST_INIT_COMPLETE	=13;
     /**

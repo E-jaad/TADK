@@ -1,13 +1,13 @@
 import java.util.*;
 import TADK.*;
 
-class scheduler extends TimerTask {
+class exampleScheduler extends TimerTask {
     private String name;
     BusController bc;
     DeviceData[] messages = new DeviceData[6];
     static long msgCounter=0;
     static int msgIndex=0;
-    public scheduler(String name,BusController bc) {
+    public exampleScheduler(String name,BusController bc) {
         this.name = name;
         this.bc=bc;
         messages[0] = new DeviceData(13,1,DeviceConstants.TADK_RT_TO_BC,31);  // Rt address 1 sub address 1 (TX) 31 words
