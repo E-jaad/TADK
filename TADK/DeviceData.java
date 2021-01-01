@@ -1,32 +1,92 @@
 package TADK;
-
+/**
+ *
+ * @author E-JAAD
+ * 
+ */
+/**
+ * 
+ * This class encodes and decodes message packet to/from TADK format.
+ */
 public class DeviceData {
-    public int rtAddress;
-    public int subAddress;
+
+    /**
+     *(1-30)RT Address
+     */
+    public int rtAddress; 
+    /**
+     *(1-30)Sub Address
+     */
+    public int subAddress; 
+    /**
+     *(0/1) Receive/Transmit
+     */
     public int txRx;
-    public short[] data;
-    public int status;
-    public int channel;
-    public int response;
+    /**
+     *Data WORDS max Size-32
+     */
+    public short[] data; 
+    /**
+     *Status field of response
+     */
+    public int status; 
+    /**
+     *(0/1) Channel A/B used by response
+     */
+    public int channel; 
+    /**
+     *EJAAD Status code of Response as defined in API
+     */
+    public int response; 
     // a dummy constructor for configuaration use
+
+    /**
+     *
+     */
     public DeviceData() {
         this.rtAddress = 0;
         this.subAddress = 0;
         this.txRx = 0;
         this.data = new short[32];
     }
+
+    /**
+     *
+     * @param rtAddress
+     * @param subAddress
+     * @param txRx
+     * @param data
+     */
     public DeviceData(int rtAddress,int subAddress,int txRx, short[] data) {
         this.rtAddress = rtAddress;
         this.subAddress = subAddress;
         this.txRx = txRx;
         this.data = data;
     }
-    public DeviceData(int rtAddress,int subAddress, int count) {
+
+    /**
+     *
+     * @param rtAddress
+     * @param subAddress
+     * @param count
+     */
+    public DeviceData(int rtAddress,int subAddress,int txRx, int count) {
         this.rtAddress = rtAddress;
         this.subAddress = subAddress;
-        this.txRx = 1;
+        this.txRx = txRx;
         this.data = new short[count];
     }
+
+    /**
+     *
+     * @param rtAddress
+     * @param subAddress
+     * @param txRx
+     * @param data
+     * @param status
+     * @param channel
+     * @param response
+     */
     public DeviceData(int rtAddress,int subAddress,int txRx, short[] data, int status, int channel,int response) {
         this.rtAddress = rtAddress;
         this.subAddress = subAddress;
@@ -36,6 +96,13 @@ public class DeviceData {
         this.channel = channel;
         this.response = response;
     }
+    
+    /** 
+     * this method is used to encode the message/command to TADK API format
+     * @param command
+     * @param action
+     * @return byte[]
+     */
     public byte[] encode(byte command,byte action) {
         byte[] encoded = new byte[82];
         for (int i = 0; i < 82; ++i) {
@@ -56,6 +123,13 @@ public class DeviceData {
         }
         return encoded;
     }
+    
+    /** 
+     * This method is used to parse the TADK Response
+     * @param rawData The Raw data received from TADK
+     * @return DeviceData
+     * @throws FailedToDecode
+     */
     public static DeviceData decode(char[] rawData) throws FailedToDecode {
         
         int sync = rawData[0] + rawData[1] * 256;
@@ -77,3 +151,4 @@ public class DeviceData {
         return new DeviceData(rta, subadd, txrx, data, status, channel,response);
     }
 }
+
