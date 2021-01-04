@@ -13,7 +13,7 @@ public class exampleBM {
     /*
     *   IP address of TADK
     */
-    public final static String ip = "192.168.0.102";
+    public final static String ip = "192.168.1.104";
     /*
     *   TCP port number of TADK
     */
@@ -44,7 +44,45 @@ public class exampleBM {
 				try {
                     recData = bm.readDeviceData();
                     System.out.println("Recieved [" + recData.subAddress+ "] :"+recData.response);
-                    System.out.println("Data[0]: " + recData.data[0]);
+                    switch(recData.response){
+                        case DeviceConstants.TADK_RESPONSE_SUCCESSFULL_RX_BC_RT:
+                        //BC->RT command  executed successfully. 
+                        //System.out.println("Status: " + recData.status); //Check RT Status
+                        //Print Data Words
+                        // for(int index=0;index<recData.data.length;index++){
+                        //     System.out.println("DataWord[" + index + "]: "+recData.data[index]);
+                        // }
+                        break;
+                        case DeviceConstants.TADK_RESPONSE_SUCCESSFULL_TX_RT_BC:
+                        //RT->BC command  executed successfully.
+                        break;
+                        case DeviceConstants.TADK_RESPONSE_SUCCESSFULL_RX_BOCAT:
+                        //Broadcast command  executed successfully.
+                        break;
+                        case DeviceConstants.TADK_RESPONSE_CONFIG_SUCCESS:
+                        //TADK configured successfully.
+                        break;
+                        case DeviceConstants.TADK_RESPONSE_SUCCESSFULL_MODE_RT_BC:
+                        //Modecode command executed successfully.
+                        break;
+                        case DeviceConstants.TADK_RESPONSE_FAILED_RX_BC_RT:
+                        //BC->RT command timedout. RT Failed to respond. Check if RT is turned on,configure to the right address, and Bus is rightly connected.
+                        break;
+                        case DeviceConstants.TADK_RESPONSE_FAILED_TX_RT_BC:
+                        //RT->BC command timedout. RT Failed to respond. Check if RT is turned on,configure to the right address, and Bus is rightly connected.
+                        break;
+                        case DeviceConstants.TADK_RESPONSE_CONFIG_FAILED:
+                        // Configuration command failed, check if the configuration message was constructed right.
+                        break;
+                        case DeviceConstants.TADK_RESPONSE_FAILED_MODE_RT_BC:
+                        // Modecode command timedout. RT Failed to respond. Check if RT is turned on,configure to the right address, and Bus is rightly connected.
+                        break;
+                        case DeviceConstants.TADK_RESPONSE_GEN_ERROR:
+                        // check if the message was constructed right.
+                        break;
+                        default:
+                        break;
+                    }
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
