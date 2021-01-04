@@ -28,7 +28,7 @@ public class RemoteTerminal {
         this.connection = new DeviceConnection(ip, port, rtAddress, 3);
         this.connection.connect();
         this.rtAddress = rtAddress;
-        this.configure();
+        this.configure(rtAddress);
     }
     
     /** 
@@ -37,9 +37,9 @@ public class RemoteTerminal {
      * @throws FailedToConfigure
      * @throws IOException
      */
-    private DeviceData configure() throws FailedToConfigure, IOException {
+    private DeviceData configure(int rtAddress) throws FailedToConfigure, IOException {
         this.connection.sendDevice(
-            new DeviceData(),
+            new DeviceData(rtAddress,0,0,0),
             DeviceConstants.TADK_COMMAND_CONFIG,
             DeviceConstants.TADK_ACTION_SET_RT
         );
