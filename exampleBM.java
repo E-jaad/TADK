@@ -1,7 +1,14 @@
 import java.io.IOException;
 import java.net.UnknownHostException;
 import TADK.*;
-
+/**
+ * This is an example of Bus Monitor. the following actions are performed in this example.
+ * 1. Connect to TADK through TCP
+ * 2. Configure TADK as BM.
+ * 3. Set trap on BM
+ * 4. Enable BM 
+ * 5. strat thread for reading the messages
+ */
 public class exampleBM {
     /*
     *   IP address of TADK
@@ -24,8 +31,11 @@ public class exampleBM {
         //Create an object of BM and connect to TADK through tcp on the given ip and port and configure TADK as BM
         BusMonitor bm = new BusMonitor(ip, port);
         System.out.println("Connected to " + ip + ":" + port);
+        //Before setting traps, we have to disable BM if previously enabled.
         bm.disableBM();
+        //Set trap for messages with RT:13, SA:1, TXRX: BC->RT, Word Count: 7
         bm.setTrap(13, 1, DeviceConstants.TADK_BC_TO_RT, 7);
+        //Enable BM to start reading
         bm.enableBM();
         Thread rtRecieveThread = new Thread(()->{
             System.out.println("Recieve Thread Started");
