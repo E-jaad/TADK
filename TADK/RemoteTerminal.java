@@ -44,7 +44,7 @@ public class RemoteTerminal {
             DeviceConstants.TADK_ACTION_SET_RT
         );
         DeviceData ret = this.connection.readDevice();
-        if(ret.response == DeviceConstants.TADK_RESPONSE_CONFIG_FAILED){
+        if(ret.response != DeviceConstants.TADK_RESPONSE_CONFIG_SUCCESS){
             throw new FailedToConfigure("Remote Terminal");
         }
         return ret;

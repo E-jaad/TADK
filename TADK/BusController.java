@@ -137,8 +137,8 @@ public class BusController {
      */
     public DeviceData queryModeCode(int rtAddress, int modecode, short[] data) throws UnknownHostException,IOException {
         connection.sendDevice(
-            new DeviceData(rtAddress, modecode, 0, data),
-            DeviceConstants.TADK_COMMAND_SET,
+            new DeviceData(rtAddress, modecode, 1, data),
+            DeviceConstants.TADK_COMMAND_GET,
             DeviceConstants.TADK_ACTION_MODE
         );
         return connection.readDevice();
