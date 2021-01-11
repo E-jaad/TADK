@@ -10,7 +10,7 @@ public class exampleBC {
     /*
     * IP address of TADK
     */
-    public final static String ip = "192.168.1.102";
+    public final static String ip = "192.168.1.104";
     /*
     *   TCP Port Number of TADK
     */

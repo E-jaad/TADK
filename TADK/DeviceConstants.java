@@ -158,4 +158,18 @@ public class DeviceConstants {
      */
     public static final int TADK_RT_TO_BC                       =1;
 
+    /**
+     * 
+     */
+    public static final int SYNCHRONIZE_WITHOUT_DATA		=1;
+    public static final int TRANSMIT_STATUS_WORD 			=2;
+    public static final int INITIATE_SELF_TEST 				=3;
+    public static final int TRANSMITTER_SHUTDOWN			=4;
+    public static final int OVERRIDE_TRANSMITTER_SHUTDOWN 	=5;
+    public static final int RESET_REMOTE_TERMINAL			=8;
+    public static final int TRANSMIT_VECTOR_WORD 			=16;
+    public static final int SYNCHRONIZE    					=17;
+    public static final int TRANSMIT_LAST_COMMAND 			=18; 
+    public static final int TRANSMIT_BIT_WORD     			=19; 
+
 }

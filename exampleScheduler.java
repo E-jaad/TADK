@@ -31,6 +31,7 @@ class exampleScheduler extends TimerTask {
                 //RT->BC command  executed successfully.
                 //System.out.println("Status: " + recData.status); //Check RT Status
                 //Print Data Words
+                // System.out.println("Data for SA: "+recData.subAddress);
                 // for(int index=0;index<recData.data.length;index++){
                 //     System.out.println("DataWord[" + index + "]: "+recData.data[index]);
                 // }
