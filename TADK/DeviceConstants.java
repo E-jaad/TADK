@@ -157,6 +157,7 @@ public class DeviceConstants {
      * Set TxRx Bit to 1 for RT to BC command
      */
     public static final int TADK_RT_TO_BC                       =1;
+
     /**
      * 
      */
