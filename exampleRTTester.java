@@ -1,11 +1,12 @@
 import java.io.IOException;
 import java.net.UnknownHostException;
+
 import TADK.*;
 public class exampleRTTester {
     /*
     *   IP address of TADK
     */
-    public final static String ip = "192.168.1.107";
+    public final static String ip = "192.168.1.105";
     /*
     *   TCP port number of TADK
     */
@@ -13,7 +14,7 @@ public class exampleRTTester {
     /*
     *   RT Address to be configured
     */
-    public final static int rtAddress = 14;
+    public final static int rtAddress = 15;
     
     /** 
      * @param args[] None
@@ -25,6 +26,7 @@ public class exampleRTTester {
 	{ 
         //Create an object of RT and connect to TADK through tcp on the give ip and port and set RT address as well
         RemoteTerminal rt = new RemoteTerminal(ip,port,rtAddress);
+        System.out.println("Connected to " + ip + ":" + port);
         Thread rtRecieveThread = new Thread(()->{
             System.out.println("Recieve Thread Started");
             while(true){
@@ -36,7 +38,6 @@ public class exampleRTTester {
                         case DeviceConstants.TADK_RESPONSE_SUCCESSFULL_RX_BC_RT:
                             //BC->RT command  executed successfully. 
                             //System.out.println("Status: " + recData.status); //Check RT Status
-                            //Updata the TX vector to the same data received on RX vector for testing purpose
                             rt.writeSubAddress(recData.subAddress,recData.data);
                         break;
                         case DeviceConstants.TADK_RESPONSE_SUCCESSFULL_TX_RT_BC:

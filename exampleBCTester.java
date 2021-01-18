@@ -146,8 +146,6 @@ public class exampleBCTester {
             messages[i] = new DeviceData(testingRTAddress,i+1,DeviceConstants.TADK_BC_TO_RT,testData);
         for(int i=30;i<60;i++)
             messages[i] = new DeviceData(testingRTAddress,i-29,DeviceConstants.TADK_RT_TO_BC,31);
-        //messages[62] = new DeviceData(testingRTAddress,0,DeviceConstants.TADK_RT_TO_BC,1);
-        messages[60]=new DeviceData(testingRTAddress,0,1,16);
         try{
             //Connect to TCP Server TADK
             BusController bc = new BusController(ip, port);
