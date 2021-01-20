@@ -6,6 +6,7 @@ import TADK.*;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Timer;
+import java.util.concurrent.ConcurrentLinkedQueue;
 /**
  * This is an example BC which sends and recives data with RT address 1
  */
@@ -26,7 +27,7 @@ public class exampleBC {
      */
     public static void main(String args[]) throws UnknownHostException, IOException, FailedToConfigure {                                                                                                       // (RX) 20 words
         try {
-            Queue q = new LinkedList<DeviceData>();
+            ConcurrentLinkedQueue q = new ConcurrentLinkedQueue<DeviceData>();
             
             // Connect to TCP Server TADK
             BusController bc = new BusController(ip, port);

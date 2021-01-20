@@ -1,8 +1,10 @@
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import TADK.*;
 public class exampleTCPRespProcess implements Runnable {
-    Queue q;
-    public exampleTCPRespProcess(Queue q) {
+    ConcurrentLinkedQueue q;
+    public exampleTCPRespProcess(ConcurrentLinkedQueue q) {
         this.q=q;
     }
     public void decodeResponse(DeviceData recData)
@@ -62,8 +64,6 @@ public class exampleTCPRespProcess implements Runnable {
         {
             try {
                 if(q.size()>0){
-                    // if(q.size()>3000)
-                    //     System.out.println("size: "+q.size());
                     DeviceData r=(DeviceData)q.poll();
                     if(r!=null)
                         decodeResponse(r);

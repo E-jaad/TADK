@@ -1,14 +1,16 @@
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import TADK.*;
 class exampleScheduler extends TimerTask {
     private String name;
     BusController bc;
-    Queue q;
+    ConcurrentLinkedQueue q;
     DeviceData[] messages = new DeviceData[8];
     static int totalNumberOfCommands=8;
     static int testingRTAddress=13;
-    public exampleScheduler(String name,BusController bc,Queue q) {
+    public exampleScheduler(String name,BusController bc,ConcurrentLinkedQueue q) {
         this.name = name;
         this.bc=bc;
         this.q=q;
@@ -38,7 +40,7 @@ class exampleScheduler extends TimerTask {
                         q.add(res);
                     }  
                     long end = System.nanoTime();
-                    //System.out.println("timeSpent for Major Frame(8 Minor frames): "+((double)(end - start) / 1000000)+" mSec");
+                    System.out.println("timeSpent for Major Frame(8 Minor frames): "+((double)(end - start) / 1000000)+" mSec");
                 } catch (Exception e) {
                     e.printStackTrace();   
                 }
