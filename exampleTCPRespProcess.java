@@ -1,4 +1,4 @@
-import java.util.*;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import TADK.*;
@@ -12,10 +12,18 @@ public class exampleTCPRespProcess implements Runnable {
         switch(recData.response)
         {
             case DeviceConstants.TADK_RESPONSE_SUCCESSFULL_RX_BC_RT:
-                //BC->RT command  executed successfully. 
+                //BC->RT command  executed successfully.
+                //Usable when configured as RT. Print the data received from BC.
+                // System.out.print("Data for BC->RT at SA: "+recData.subAddress);
+                // System.out.print(": { " );
+                // for(int index=0;index<recData.data.length-1;index++){
+                //     System.out.print(+recData.data[index]+", ");
+                // }
+                // System.out.println(recData.data[recData.data.length-1]+" }");
             break;
             case DeviceConstants.TADK_RESPONSE_SUCCESSFULL_TX_RT_BC:
                 //RT->BC command  executed successfully.
+                //Usable when configured as BC. Print the data received from RT.
                 //System.out.println("Status: " + recData.status); //Check RT Status
                 //Print Data Words
                 System.out.print("Data for RT->BC at SA: "+recData.subAddress);

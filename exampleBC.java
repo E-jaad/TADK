@@ -2,9 +2,6 @@
 import java.io.IOException;
 import java.net.UnknownHostException;
 import TADK.*;
-
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Timer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 /**

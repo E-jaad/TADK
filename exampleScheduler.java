@@ -36,11 +36,10 @@ class exampleScheduler extends TimerTask {
                         res = bc.queryRt(
                             messages[commandNumber]
                         );
-                       // responseProcess(res);
                         q.add(res);
                     }  
                     long end = System.nanoTime();
-                    System.out.println("timeSpent for Major Frame(8 Minor frames): "+((double)(end - start) / 1000000)+" mSec");
+                    //System.out.println("timeSpent for Major Frame(8 Minor frames): "+((double)(end - start) / 1000000)+" mSec");
                 } catch (Exception e) {
                     e.printStackTrace();   
                 }
