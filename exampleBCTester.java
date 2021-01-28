@@ -18,7 +18,7 @@ public class exampleBCTester {
     /*
     * IP address of TADK
     */
-    public final static String ip = "192.168.1.104";
+    public final static String ip = "192.168.1.102";
     /*
     *   TCP Port Number of TADK
     */
@@ -116,7 +116,7 @@ public class exampleBCTester {
      */
     public static void main(String args[]) throws UnknownHostException, IOException, FailedToConfigure { 
         int count = 0;
-        int testingRTAddress = 15;
+        int testingRTAddress = 13;
         DeviceData[] messages = new DeviceData[62];
         final int[] modeCodes = new int[] {
             DeviceConstants.SYNCHRONIZE_WITHOUT_DATA,

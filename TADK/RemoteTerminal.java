@@ -49,7 +49,6 @@ public class RemoteTerminal {
         }
         return ret;
     }
-    
     /** 
      * This method is used to set data on subaddresses of RT
      * @param data  Data object
