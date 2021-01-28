@@ -130,23 +130,23 @@ public class DeviceData {
      * @return DeviceData
      * @throws FailedToDecode
      */
-    public static DeviceData decode(char[] rawData) throws FailedToDecode {
+    public static DeviceData decode(byte[] rawData) throws FailedToDecode {
         
-        int sync = rawData[0] + rawData[1] * 256;
+        int sync = (int)((rawData[1]&0xff)<<8 | (rawData[0]&0xff));
         if(sync != 0xaaaa){ 
             throw new FailedToDecode("in correct sync = "+sync);
         }
         //int messageIndex = rawData[2] + rawData[3] * 256;
-        short response = (short)(rawData[4] +rawData[5] *256);
-        int channel = rawData[6] + rawData[7] * 256;
-        int rta = rawData[8] + rawData[9] * 256;
-        int txrx = rawData[10] + rawData[11] * 256;
-        int subadd = rawData[12] + rawData[13] * 256;
-        int count = rawData[14] + rawData[15] * 256;
-        int status = rawData[16] + rawData[17] * 256;
+        short response =    (short)((rawData[5]&0xff)<<8 | (rawData[4]&0xff));
+        int channel =       (short)((rawData[7]&0xff)<<8 | (rawData[6]&0xff));
+        int rta =           (short)((rawData[9]&0xff)<<8 | (rawData[8]&0xff));
+        int txrx =          (short)((rawData[11]&0xff)<<8 | (rawData[10]&0xff));
+        int subadd =        (short)((rawData[13]&0xff)<<8 | (rawData[12]&0xff));
+        int count =         (short)((rawData[15]&0xff)<<8 | (rawData[14]&0xff));
+        int status =        (short)((rawData[17]&0xff)<<8 | (rawData[16]&0xff));
         short[] data = new short[count];
         for (int i = 0, j = 0; i < count; i++,j+=2) {
-            data[i] = (short)(rawData[18+j] + rawData[19+j] * 256);
+            data[i] =       (short)((rawData[19+j]&0xff)<<8 | (rawData[18+j]&0xff));
         }
         return new DeviceData(rta, subadd, txrx, data, status, channel,response);
     }

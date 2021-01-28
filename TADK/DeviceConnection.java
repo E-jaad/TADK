@@ -12,7 +12,8 @@ import java.io.*;
  */
 public class DeviceConnection {
     private Socket socket;
-    private BufferedReader inStream;
+    //private BufferedReader inStream;
+    private DataInputStream inStream;
     private DataOutputStream outStream = null;
 
     /**
@@ -92,8 +93,9 @@ public class DeviceConnection {
      */
     public void connect() throws UnknownHostException, IOException {
         try{
-            this.socket = new Socket(this.ip, this.port);    
-            this.inStream = new BufferedReader(new InputStreamReader(this.socket.getInputStream(),"Cp1252")); //ISO-8859-1
+            this.socket = new Socket(this.ip, this.port); 
+            this.inStream = new DataInputStream(this.socket.getInputStream());   
+            //this.inStream = new BufferedReader(new InputStreamReader(this.socket.getInputStream(),"Cp1252")); //ISO-8859-1
             this.outStream = new DataOutputStream(socket.getOutputStream());
             this.isConnected=true;
         }
@@ -107,7 +109,7 @@ public class DeviceConnection {
      * @return DeviceData   the data read from TADK is returned
      */
     public DeviceData readDevice() {
-        char[] tcpBuffer = new char[82];
+        byte[] tcpBuffer = new byte[82];
         try{
             final int bytesread = inStream.read(tcpBuffer, 0, 82);
             if (bytesread == 82) {
