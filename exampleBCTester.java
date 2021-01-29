@@ -14,7 +14,7 @@ import java.util.logging.SimpleFormatter;
  * Different Modecodes
  * 
  */
-public class exampleBCtester2 {
+public class exampleBCTester {
     /*
     * IP address of TADK
     */
