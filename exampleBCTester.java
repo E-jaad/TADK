@@ -14,7 +14,7 @@ import java.util.logging.SimpleFormatter;
  * Different Modecodes
  * 
  */
-public class exampleBCTester {
+public class exampleBCtester2 {
     /*
     * IP address of TADK
     */
@@ -26,7 +26,7 @@ public class exampleBCTester {
     /**
      * Log file location
      */
-    static String logFile = "C:/Users/HP/OneDrive/Desktop/BCLogFile.log";
+    static String logFile = "BCLogFile.log";
 
     static long msgCounter=0;
     static long errCounter=0;
@@ -35,7 +35,7 @@ public class exampleBCTester {
     static Logger logger = Logger.getLogger(exampleBCTester.class.getName());
     // Random data to be sent, 31 words for each 31 subaddresses
     public static short[] testData = new short[] { 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-            20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
+            20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1 };
     private static boolean[][] testPassResponse = new boolean[2][32];
     private static boolean[][] testPassStatus = new boolean[2][32];
     private static boolean[][] testPassData = new boolean[2][32];
@@ -87,7 +87,7 @@ public class exampleBCTester {
                 break;
             case DeviceConstants.TADK_RESPONSE_FAILED_TX_RT_BC:
                 testPassResponse[DeviceConstants.TADK_RT_TO_BC][recData.subAddress] = false;
-                logger.severe(" BC-RT Command at subaddress: " + (recData.subAddress) + " failed");
+                logger.severe(" RT-BC Command at subaddress: " + (recData.subAddress) + " failed");
                 // RT->BC command timedout. RT Failed to respond. Check if RT is turned
                 // on,configure to the right address, and Bus is rightly connected.
                 break;
@@ -149,13 +149,15 @@ public class exampleBCTester {
         try{
             //Connect to TCP Server TADK
             BusController bc = new BusController(ip, port);
-            logger.info(" Connected to "+ip+":"+port);  
+            logger.info(" Connected to "+ip+":"+port);
+		
             while(true) {
                 if(count==averageWindow)
                 {
                     count=0;
                     logger.info(" Message Counter: "+msgCounter+", Error Counter: "+errCounter+", Average time: "+ totalTime/averageWindow +" us");
                     totalTime=0;
+					
                     for(int sa=1;sa<31;sa++)
                     {
                         if(testPassResponse[DeviceConstants.TADK_BC_TO_RT][sa]==false)
@@ -168,9 +170,35 @@ public class exampleBCTester {
                             logger.warning(" RT->BC Command at subaddress: "+(sa)+" failed");
                     }
                 }
+				
+				//////////////////TODO Change is in here//////////////////
+				//update data every 50 milliseconds
+				if(count%5 == 0)
+                {
+					for(int k = 0; k < testData.length; k++) {
+						if(testData[k] >= 1000) {
+							testData[k] = 1;
+						}
+						testData[k]++;
+					}
+				}
+				//////////////////TODO End Change is in here//////////////////	
+				
                 long start = System.nanoTime();
                 //30 (BC->RT) messages and 30(RT->BC) messages
-                for(int i=0;i<60;i++)
+                for(int i=0;i<30;i++)
+                {
+                    DeviceData recData = bc.queryRt(
+                        messages[i]
+                    );  
+                    responseProcess(recData);
+                    if(recData.response>=0)
+                        msgCounter++;
+                    else    
+                        errCounter++;
+                    Thread.sleep(1);
+                }
+                for(int i=30;i<60;i++)
                 {
                     DeviceData recData = bc.queryRt(
                         messages[i]
@@ -204,7 +232,9 @@ public class exampleBCTester {
                 count++;
             }
         } catch(Exception e){
-            e.printStackTrace();          
+            e.printStackTrace(); 
+
+			while(true) {try{Thread.sleep(1);}catch(Exception e2){}}
         }
     }
 
